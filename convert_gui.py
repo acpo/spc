@@ -10,9 +10,12 @@ author: Rohan Isaac
 """
 
 from __future__ import division, absolute_import, unicode_literals, print_function
-from Tkinter import Tk, StringVar, DISABLED, NORMAL, END, W, E, N, S
-from ttk import Frame, Label, Button, Radiobutton, Entry
-import tkFileDialog
+#from Tkinter import Tk, StringVar, DISABLED, NORMAL, END, W, E, N, S
+from tkinter import * # Tk, StringVar, DISABLED, NORMAL, END, W, E, N, S
+from tkinter import ttk
+#from ttk import Frame, Label, Button, Radiobutton, Entry
+#import tkFileDialog
+from tkinter import filedialog
 import spc
 import os
 
@@ -22,7 +25,8 @@ class ConvertSPC:
         self.master = master
         master.title("Convert SPC files")
 
-        mf = Frame(master, padding="10")
+        #mf = Frame(master, padding="10")
+        mf = Frame(master)
         mf.grid(column=0, row=0, sticky=(N, W, E, S))
         mf.columnconfigure(0, weight=1)
         mf.rowconfigure(0, weight=1)
@@ -93,7 +97,8 @@ class ConvertSPC:
                 print('%s not spc file, skipping' % fpath)
 
     def ask_dir(self):
-        self.folder.set(tkFileDialog.askdirectory())
+        self.folder.set(filedialog.askdirectory())
+        #self.folder.set(tkFileDialog.askdirectory())
 
 if __name__ == "__main__":
     root = Tk()
