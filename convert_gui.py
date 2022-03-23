@@ -10,12 +10,18 @@ author: Rohan Isaac
 """
 
 from __future__ import division, absolute_import, unicode_literals, print_function
-#from Tkinter import Tk, StringVar, DISABLED, NORMAL, END, W, E, N, S
-from tkinter import * # Tk, StringVar, DISABLED, NORMAL, END, W, E, N, S
-from tkinter import ttk
-#from ttk import Frame, Label, Button, Radiobutton, Entry
-#import tkFileDialog
-from tkinter import filedialog
+from sys import version_info
+if version_info.major == 2:
+    # use Python 2.7 style
+    from Tkinter import Tk, StringVar, DISABLED, NORMAL, END, W, E, N, S
+    from ttk import Frame, Label, Button, Radiobutton, Entry
+    import tkFileDialog
+elif version_info.major == 3:
+    # use Python 3.x style
+    from tkinter import *
+    from tkinter import ttk
+    from tkinter import filedialog
+
 import spc
 import os
 
@@ -25,7 +31,7 @@ class ConvertSPC:
         self.master = master
         master.title("Convert SPC files")
 
-        #mf = Frame(master, padding="10")
+        # mf = Frame(master, padding="10")  #removing the padding arguement makes this work in both Python 2 & 3
         mf = Frame(master)
         mf.grid(column=0, row=0, sticky=(N, W, E, S))
         mf.columnconfigure(0, weight=1)
@@ -97,8 +103,12 @@ class ConvertSPC:
                 print('%s not spc file, skipping' % fpath)
 
     def ask_dir(self):
-        self.folder.set(filedialog.askdirectory())
-        #self.folder.set(tkFileDialog.askdirectory())
+        if version_info.major == 2:
+            # use Python 2.7 style
+            self.folder.set(tkFileDialog.askdirectory())
+        elif version_info.major == 3:
+            # use Python 3.x style
+            self.folder.set(filedialog.askdirectory())
 
 if __name__ == "__main__":
     root = Tk()
